@@ -1,0 +1,49 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class GuessingGame {
+    public static void main(String[] args) {
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+        int numberOfRounds = 0;
+        int numberOfWins = 0;
+        int maxAttempts = 6; // Set the maximum number of attempts
+
+        while (true) {
+            int numberToGuess = random.nextInt(100) + 1;
+            int numberOfAttempts = 0;
+
+            while (true) {
+                System.out.println("Guess a number between 1 and 100:");
+                int guess = scanner.nextInt();
+                numberOfAttempts++;
+
+                if (guess == numberToGuess) {
+                    System.out.println("Congratulations! You won in " + numberOfAttempts + " attempts.");
+                    numberOfWins++;
+                    break;
+                } else if (guess < numberToGuess) {
+                    System.out.println("Your guess is too low. Try again.");
+                } else {
+                    System.out.println("Your guess is too high. Try again.");
+                }
+
+                if (numberOfAttempts >= maxAttempts) {
+                    System.out.println("You ran out of attempts. The number was " + numberToGuess + ".");
+                    break;
+                }
+            }
+
+            numberOfRounds++;
+
+            System.out.println("Do you want to play again? (yes/no)");
+            String response = scanner.next();
+
+            if (!response.equalsIgnoreCase("yes")) {
+                break;
+            }
+        }
+
+        System.out.println("You played " + numberOfRounds + " rounds and won " + numberOfWins + " times.");
+    }
+}
